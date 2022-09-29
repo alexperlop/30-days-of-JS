@@ -1,4 +1,4 @@
-![image style="width:500px"](https://user-images.githubusercontent.com/81261121/192973315-5460be49-d2a7-46bf-9a47-78c89cbe3b81.png)
+![image](https://user-images.githubusercontent.com/81261121/192973315-5460be49-d2a7-46bf-9a47-78c89cbe3b81.png)
 
 # 30-days-of-JS
 Curso de JavaScript de 30 días 
