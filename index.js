@@ -1,5 +1,4 @@
-import countriesFile from './countries'
-console.log("🚀 ~ file: index.js:2 ~ countries", countriesFile)
+import { countriesFile } from './countries.js'
 // Ejercicios:Nivel 1
 // const a = [4, 5, 8, 9];
 // const b = [3, 4, 5, 7];
@@ -61,11 +60,33 @@ let distinct = new Set(difference);
 console.log('Encontrar a diferencias b', distinct);
 // Ejercicios:Nivel 3
 // Cuántos idiomas hay en el archivo de objetos de países.
-
+const numOfLanguages = (array) => {
+    const newArray = array.reduce((acc, cur) => {
+        cur.languages.map(language => acc[language] = acc[language] ? acc[language] + 1 : 1)
+        return acc
+    }, {})
+    return Object.entries(newArray).length
+}
+console.log('Cuántos idiomas hay en el archivo de objetos de países', numOfLanguages(countriesFile))
 // *** Utiliza los datos de los países para encontrar las 10 lenguas más habladas:
+const tenFirstLanguages = (array, num) => {
+    const newArray = array.reduce((acc, cur) => {
+        cur.languages.map(language => acc[language] = acc[language] ? acc[language] + 1 : 1)
+        return acc
+    }, {})
+    const result = Object.keys(newArray).map(key => ({
+        language: key,
+        count: newArray[key]
+    }))
+    return result.sort((a, b) => {
+        return b.count - a.count
+    }).slice(0, num)
+
+}
+console.log('Utiliza los datos de los países para encontrar las 10 lenguas más habladas', tenFirstLanguages(countriesFile, 10))
 
 // // El resultado debería ser el siguiente
-// console.log(mostSpokenLanguages(countries, 10))[
+// console.log(tenFirstLanguages(countries, 10))[
 //   ({ English: 91 },
 //   { French: 45 },
 //   { Arabic: 25 },
@@ -80,6 +101,6 @@ console.log('Encontrar a diferencias b', distinct);
 // ];
 
 // // El resultado debería ser el siguiente
-// console.log(mostSpokenLanguages(countries, 3))[
+console.log(tenFirstLanguages(countriesFile, 3))
 //   ({ English: 91 }, { French: 45 }, { Arabic: 25 })
 // ];
