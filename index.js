@@ -1,106 +1,185 @@
-import { countriesFile } from './countries.js'
-// Ejercicios:Nivel 1
-// const a = [4, 5, 8, 9];
-// const b = [3, 4, 5, 7];
-// const countries = ["Finland", "Sweden", "Norway"];
-// crear un set vacío
-const companies = new Set()
-console.log('crear un set vacío', companies)
-// Crear un set que contenga de 0 a 10 utilizando el bucle
-let numArray = new Set()
-for (let i = 0; i <= 10; i++) {
-    numArray.add(i);
-}
-console.log('Crear un set que contenga de 0 a 10 utilizando el bucle', numArray)
-// Eliminar un elemento de set
-numArray.delete(0)
-console.log('Eliminar un elemento de set', numArray)
-
-// Limpia set
-numArray.clear()
-console.log('Limpiar set', numArray)
-// Crear un set de 5 elementos string a partir de un array
-const stringArray = ["Google", "Facebook", "Amazon", "Oracle", "Microsoft"]
-const stringSet = new Set(stringArray)
-console.log('Crear un set de 5 elementos string a partir de un array', stringSet)
-// Crear un map de países y el número de caracteres de un país
-const countries = [
-    "Finland",
-    "Sweden",
-    "Norway"
-]
-let map = new Map()
-countries.map(country => {
-    map.set(
-        country,
-        country.length
-    )
+import { countriesFile } from "./countries.js"
+// Ejercicios: Nivel 1
+const constants = [2.72, 3.14, 9.81, 37, 100];
+const countries = ["Finland", "Estonia", "Sweden", "Denmark", "Norway"];
+const rectangle = {
+    width: 20,
+    height: 10,
+    area: 200,
+    perimeter: 60,
+};
+const users = [
+    {
+        name: "Brook",
+        scores: 75,
+        skills: ["HTM", "CSS", "JS"],
+        age: 16,
+    },
+    {
+        name: "Alex",
+        scores: 80,
+        skills: ["HTM", "CSS", "JS"],
+        age: 18,
+    },
+    {
+        name: "David",
+        scores: 75,
+        skills: ["HTM", "CSS"],
+        age: 22,
+    },
+    {
+        name: "John",
+        scores: 85,
+        skills: ["HTML"],
+        age: 25,
+    },
+    {
+        name: "Sara",
+        scores: 95,
+        skills: ["HTM", "CSS", "JS"],
+        age: 26,
+    },
+    {
+        name: "Martha",
+        scores: 80,
+        skills: ["HTM", "CSS", "JS"],
+        age: 18,
+    },
+    {
+        name: "Thomas",
+        scores: 90,
+        skills: ["HTM", "CSS", "JS"],
+        age: 20,
+    },
+];
+// Desestructurar y asignar los elementos del array de constantes para e, pi, gravedad, humanBodyTemp, waterBoilingTemp.
+const [e, pi, gravity, humanBodyTemp, waterBoilingTemp] = constants
+console.log(`Desestructurar y asignar los elementos del array de constantes para e = ${e}, pi = ${pi}, gravedad = ${gravity}, humanBodyTemp = ${humanBodyTemp}, waterBoilingTemp = ${waterBoilingTemp}`)
+// Desestructurar y asignar los elementos del array de países a fin, est, sw, den, nor
+const [fin, est, sw, den, nor] = countries
+console.log(`Desestructurar y asignar los elementos del array de países a fin = ${fin}, est = ${est}, sw = ${sw}, den = ${den}, nor = ${nor}`)
+// Desestructurar el objeto rectángulo por sus propiedades o keys.
+const { width, height, area, perimeter } = rectangle
+console.log(`Desestructurar el objeto rectángulo por sus propiedades o keys width = ${width} height = ${height} area=${area} perimeter = ${perimeter}`)
+// Ejercicios: Nivel 2
+// Iterar a través del array de usuarios y obtener todas las keys del objeto utilizando la desestructuración
+console.log('Iterar a través del array de usuarios y obtener todas las keys del objeto utilizando la desestructuración:')
+users.map(user => {
+    console.log(user.name, user.scores, user.skills, user.age)
 })
-console.log('Crear un map de países y el número de caracteres de un país', map)
-// Ejercicios:Nivel 2
-// Encontrar a unión b
-let a = [1, 2, 3, 4, 5];
-let b = [3, 4, 5, 6];
-let c = [...a, ...b];
-let A = new Set(a);
-let B = new Set(b);
-let C = new Set(c);
+// Encuentra las personas que tienen menos de dos habilidades
+const lessThanTwoSkills = (users) => users.filter(user => user.skills.length < 2)
 
-console.log('Encontrar a unión b', C);
-// Encontrar a intersección b
-
-let filter = a.filter((num) => B.has(num));
-let intersection = new Set(filter);
-
-console.log('Encontrar a intersección b', intersection);
-// Encontrar a con b
-let difference = a.filter((num) => !B.has(num));
-let distinct = new Set(difference);
-
-console.log('Encontrar a diferencias b', distinct);
-// Ejercicios:Nivel 3
-// Cuántos idiomas hay en el archivo de objetos de países.
-const numOfLanguages = (array) => {
-    const newArray = array.reduce((acc, cur) => {
-        cur.languages.map(language => acc[language] = acc[language] ? acc[language] + 1 : 1)
-        return acc
-    }, {})
-    return Object.entries(newArray).length
+console.log('Encuentra las personas que tienen menos de dos habilidades', lessThanTwoSkills(users))
+// Ejercicios: Nivel 3
+// Desestructurar el objeto países imprimir nombre, capital, población e idiomas de todos los países
+const allDataFromCountries = (countries) => {
+    return countries.map(({ name, capital, languages, population }) => {
+        console.log(`Desestructurar el objeto países imprimir nombre: ${name}, capital: ${capital}, población: ${population} e idiomas: ${languages} de todos los países`)
+    })
 }
-console.log('Cuántos idiomas hay en el archivo de objetos de países', numOfLanguages(countriesFile))
-// *** Utiliza los datos de los países para encontrar las 10 lenguas más habladas:
-const tenFirstLanguages = (array, num) => {
-    const newArray = array.reduce((acc, cur) => {
-        cur.languages.map(language => acc[language] = acc[language] ? acc[language] + 1 : 1)
-        return acc
-    }, {})
-    const result = Object.keys(newArray).map(key => ({
-        language: key,
-        count: newArray[key]
-    }))
-    return result.sort((a, b) => {
-        return b.count - a.count
-    }).slice(0, num)
+allDataFromCountries(countriesFile)
 
+// Un desarrollador junior estructura el nombre del estudiante, las habilidades y la puntuación en un array de arrays que puede no ser fácil de leer. 
+// Desestructure la siguiente matriz nombre a nombre, array de habilidades a habilidades, 
+// array de puntuaciones a puntuaciones, puntuación de JavaScript a jsScore y puntuación de React a reactScore variable en una línea.
+const student = ["David", ["HTML", "CSS", "JS", "React"], [98, 85, 90, 95]];
+const [name, skills, jsScore] = student
+console.log(name, skills, jsScore);
+// David (4) ["HTM", "CSS", "JS", "React"] 90 95
+// Escribe una función llamada convertArrayToObject que pueda convertir el array en un objeto estructurado.
+const students = [
+    ["David", ["HTM", "CSS", "JS", "React"], [98, 85, 90, 95]],
+    ["John", ["HTM", "CSS", "JS", "React"], [85, 80, 85, 80]],
+];
+const convertArrayToObject = (array) => array.map((item) => {
+    const [name, skills, score] = item
+    return {
+        name,
+        skills,
+        score
+    }
+})
+console.log(convertArrayToObject(students))
+// [
+//   {
+//     name: "David",
+//     skills: ["HTM", "CSS", "JS", "React"],
+//     scores: [98, 85, 90, 95],
+//   },
+//   {
+//     name: "John",
+//     skills: ["HTM", "CSS", "JS", "React"],
+//     scores: [85, 80, 85, 80],
+//   }
+// ];
+// Copie el objeto estudiante a newStudent sin mutar el objeto original. En el nuevo objeto añade lo siguiente 
+// Añadir Bootstrap con el nivel 8 a los conjuntos de habilidades de front end
+// Añadir Express con nivel 9 a los conjuntos de habilidades del back end
+// Añadir SQL con nivel 8 a los conjuntos de habilidades de la base de datos
+// Añadir SQL sin nivel a los conjuntos de habilidades de ciencia de datos
+const studentOne = {
+    name: "David",
+    age: 25,
+    skills: {
+        frontEnd: [
+            { skill: "HTML", level: 10 },
+            { skill: "CSS", level: 8 },
+            { skill: "JS", level: 8 },
+            { skill: "React", level: 9 },
+        ],
+        backEnd: [
+            { skill: "Node", level: 7 },
+            { skill: "GraphQL", level: 8 },
+        ],
+        dataBase: [{ skill: "MongoDB", level: 7.5 }],
+        dataScience: ["Python", "R", "D3.js"],
+    },
 }
-console.log('Utiliza los datos de los países para encontrar las 10 lenguas más habladas', tenFirstLanguages(countriesFile, 10))
+// La salida del objeto copiado debería tener este aspecto:
+// const frontCopy = [...studentOne.skills.frontEnd, { skill: 'BootStrap', level: 8 }]
+// const backCopy = [...studentOne.skills.backEnd, { skill: 'Express', level: 9 }]
+// const dataBaseCopy = [...studentOne.skills.dataBase, { skill: 'SQL', level: 8 }]
+// const dataScienceCopy = [...studentOne.skills.dataScience, 'SQL']
+// const { name: nombre, age } = studentOne
+// const newStudent = {
+//     name,
+//     age,
+//     skills: {
+//         frontEnd: frontCopy,
+//         backEnd: backCopy,
+//         dataBase: dataBaseCopy,
+//         dataScience: dataScienceCopy
+//     }
+// }
+const newStudent = { ...studentOne }
+studentOne.skills.frontEnd.push({ skill: 'BootStrap', level: 8 })
+studentOne.skills.backEnd.push({ skill: 'Express', level: 9 })
+studentOne.skills.dataBase.push({ skill: 'SQL', level: 8 })
+studentOne.skills.dataScience.push('SQL')
+console.log("🚀 ~ file: index.js:142 ~ newStudent", newStudent)
+console.log("🚀 ~ file: index.js:142 ~ studentOne", studentOne)
 
-// // El resultado debería ser el siguiente
-// console.log(tenFirstLanguages(countries, 10))[
-//   ({ English: 91 },
-//   { French: 45 },
-//   { Arabic: 25 },
-//   { Spanish: 24 },
-//   { Russian: 9 },
-//   { Portuguese: 9 },
-//   { Dutch: 8 },
-//   { German: 7 },
-//   { Chinese: 5 },
-//   { Swahili: 4 },
-//   { Serbian: 4 })
-// ];
-
-// // El resultado debería ser el siguiente
-console.log(tenFirstLanguages(countriesFile, 3))
-//   ({ English: 91 }, { French: 45 }, { Arabic: 25 })
-// ];
+//     {
+//     name: 'David',
+//     age: 25,
+//     skills: {
+//       frontEnd: [
+//         {skill: 'HTML',level: 10},
+//         {skill: 'CSS',level: 8},
+//         {skill: 'JS',level: 8},
+//         {skill: 'React',level: 9},
+//         {skill: 'BootStrap',level: 8}
+//       ],
+//       backEnd: [
+//         {skill: 'Node',level: 7},
+//         {skill: 'GraphQL',level: 8},
+//         {skill: 'Express',level: 9}
+//       ],
+//       dataBase: [
+//         { skill: 'MongoDB',level: 7.5},
+//         { skill: 'SQL',level: 8}
+//       ],
+//       dataScience: ['Python','R','D3.js','SQL']
+//     }
+//   }
