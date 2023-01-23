@@ -1,50 +1,58 @@
+// Manejo de Errores
 // Ejercicios:Nivel 1
-// Mostrar la matriz de países como una tabla
-const countries = [
-    ["Finland", "Helsinki"],
-    ["Sweden", "Stockholm"],
-    ["Norway", "Oslo"],
-]
-console.table(countries)
-// Mostrar el objeto user como una tabla
-const user = {
-    name: "Asabeneh",
-    title: "Programmer",
-    country: "Finland",
-    city: "Helsinki",
-    age: 250,
-};
-console.table(user);
-// Utilice console.group() para agrupar los registros
-console.group("Countries");
-console.log(countries);
-console.groupEnd();
-console.group("Users");
-console.log(user);
-console.groupEnd();
+// Practica
+try {
+    // código que puede arrojar un error
+} catch (err) {
+    // código a ejecutar si se produce un error
+} finally {
+    // código que se ejecutará independientemente de que se produzca un error o no
+}
 // Ejercicios:Nivel 2
-// 10 > 2 * 10 use console.assert()
-console.assert(10 > 2 * 10, 'Esto es un mensaje de aserción ')
-// Escribe un mensaje de advertencia utilizando console.warn()
-console.warn('Esto es un mensaje de advertencia')
-// Escribe un mensaje de error utilizando console.error()
-console.error('Esto es un mensaje de error')
+// Practica
+try {
+    let lastName = "Yetayeh"
+    let fullName = fistName + " " + lastName
+} catch (err) {
+    console.log("Name of the error", err.name)
+    console.log("Error message", err.message)
+} finally {
+    console.log("In any case I will be executed")
+}
 // Ejercicios:Nivel 3
-// Comprueba la diferencia de velocidad entre los siguientes bucles: while, for, for of, forEach
-console.time("Regular for loop")
-for (let i = 0; i < countries.length; i++) {
-    console.log(countries[i][0], countries[i][1])
-}
-console.timeEnd("Regular for loop")
+// Practica
+const throwErrorExampleFun = () => {
+    let message
+    let x = prompt("Enter a number: ")
+    try {
+        if (x == "") throw "empty"
+        if (isNaN(x)) throw "not a number"
+        x = Number(x)
+        if (x < 5) throw "too low"
+        if (x > 10) throw "too high"
+    } catch (err) {
+        console.log(err)
+    }
+};
+throwErrorExampleFun();
 
-console.time("for of loop")
-for (const [name, city] of countries) {
-    console.log(name, city)
-}
-console.timeEnd("for of loop")
+// Tipo de Error
 
-console.time("forEach loop")
-countries.forEach(([name, city]) => {
-    console.log(name, city)
-})
-console.timeEnd("forEach loop")
+// ReferenceError: Se ha producido una referencia ilegal. Se lanza un ReferenceError si utilizamos una variable que no ha sido declarada.
+// let firstName = "Asabeneh";
+// let fullName = firstName + " " + lastName;
+// console.log(fullName);
+// Uncaught ReferenceError: lastName is not defined
+//     at <anonymous>:2:35
+
+// SyntaxError: Se ha producido un error de sintaxis
+// let square = 2 x 2
+// console.log(square)
+// console.log('Hello, world")
+// Uncaught SyntaxError: Unexpected identifier
+
+// TypeError: Se ha producido un error sobre el tipo
+// let num = 10;
+// console.log(num.toLowerCase());
+// Uncaught TypeError: num.toLowerCase is not a function
+//     at <anonymous>:2:17
