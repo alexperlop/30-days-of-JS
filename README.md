@@ -3,7 +3,9 @@
 # 30-days-of-JS
 Curso de JavaScript de 30 días 
 
-Desafío de 30 días de JavaScript. En este desafío aprenderás todo lo que necesitas para ser un programador de JavaScript y los conceptos generales de la programación. Al final obtendrás un certificado de 30 días de JavaScript. Únete al grupo de telegram.
+Desafío de 30 días de JavaScript. En este desafío aprenderás todo lo que necesitas para ser un programador de JavaScript y los conceptos generales de la programación. Al final obtendrás un certificado de 30 días de JavaScript. 
+
+Cada una de las lecciones está realizada en una rama feature, en esta principal (main) únicamente podrás encontrar este archivo readme.
 
 30 días de JavaScript es una guía tanto para principiantes como para desarrolladores avanzados. Bienvenido a JavaScript. Disfruto de usarlo y enseñarlo y espero que tú también. JavaScript es el lenguaje del navegador.
 
