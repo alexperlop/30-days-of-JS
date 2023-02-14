@@ -1,136 +1,70 @@
-const skills = ["HTML", "CSS", "JS", "React", "Node", "Python"];
-let age = 250;
-let isMarried = true;
-const student = {
-    firstName: "Asabeneh",
-    lastName: "Yetayehe",
-    age: 250,
-    isMarried: true,
-    skills: ["HTML", "CSS", "JS", "React", "Node", "Python"],
-};
-const txt = `{
-    "Alex": {
-        "email": "alex@alex.com",
-        "skills": [
-            "HTML",
-            "CSS",
-            "JavaScript"
-        ],
-        "age": 20,
-        "isLoggedIn": false,
-        "points": 30
+// Ejercicios: Nivel 1
+// Guarda tu nombre, apellido, edad, país y ciudad en tu navegador localStorage.
+localStorage.setItem('name', 'Pepe')
+console.log('Guarda tu nombre', localStorage.getItem('name'))
+localStorage.setItem('surname', 'Pepitez')
+console.log('Guarda tu apellido', localStorage.getItem('surname'))
+localStorage.setItem('age', '24')
+console.log('Guarda tu edad', localStorage.getItem('age'))
+localStorage.setItem('country', 'Spain')
+console.log('Guarda tu país', localStorage.getItem('country'))
+localStorage.setItem('city', 'Seville')
+console.log('Guarda tu ciudad', localStorage.getItem('city'))
+// Ejercicios: Nivel 2
+// Cree un objeto estudiante. El objeto estudiante tendrá el nombre, el apellido, la edad, las habilidades, el país, las claves inscritas y los valores para las claves. Almacena el objeto estudiante en el localStorage de tu navegador.
+let student = {
+    name: 'Alex',
+    surname: 'Fergusson',
+    age: 22,
+    skills: ['HTML5', 'CSS3', 'JS', 'React', 'NextJS'],
+    keys: [
+        {
+            key: 'netflix',
+            value: '12345'
+        }
+    ]
+}
+student = JSON.stringify(student)
+localStorage.setItem('student', student)
+student = JSON.parse(student)
+console.log(' Cree un objeto estudiante. El objeto estudiante tendrá el nombre, el apellido, la edad, las habilidades, el país, las claves inscritas y los valores para las claves. Almacena el objeto estudiante en el localStorage de tu navegador.', localStorage.getItem('student'))
+// Ejercicios: Nivel 3
+// Crear un objeto llamado personAccount. Tiene propiedades de nombre, apellido, ingresos, gastos y tiene métodos totalIncome, totalExpense, accountInfo,addIncome, addExpense y accountBalance. Los ingresos son un conjunto de ingresos y su descripción y los gastos son también un conjunto de gastos y su descripción.
+let personAccount = {
+    name: 'Alex',
+    surname: 'Fergusson',
+    incomes: [200, 35, 700],
+    expenses: [100, 500, 2700],
+    totalIncome: () => {
+        return incomes.reduce((acc, cur) => {
+            return acc + cur
+        }, 0)
     },
-    "Asab": {
-        "email": "asab@asab.com",
-        "skills": [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "Redux",
-            "MongoDB",
-            "Express",
-            "React",
-            "Node"
-        ],
-        "age": 25,
-        "isLoggedIn": false,
-        "points": 50
+    totalExpense: () => {
+        return expenses.reduce((acc, cur) => {
+            return acc + cur
+        }, 0)
     },
-    "Brook": {
-        "email": "daniel@daniel.com",
-        "skills": [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "React",
-            "Redux"
-        ],
-        "age": 30,
-        "isLoggedIn": true,
-        "points": 50
+    accountInfo: () => {
+        return {
+            expenses: expenses,
+            incomes: incomes,
+            totalExpenses: totalExpense,
+            totalIncome: totalIncome
+        }
     },
-    "Daniel": {
-        "email": "daniel@alex.com",
-        "skills": [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "Python"
-        ],
-        "age": 20,
-        "isLoggedIn": false,
-        "points": 40
+    addIncome: (income) => {
+        incomes.push(income)
     },
-    "John": {
-        "email": "john@john.com",
-        "skills": [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "React",
-            "Redux",
-            "Node.js"
-        ],
-        "age": 20,
-        "isLoggedIn": true,
-        "points": 50
+    addExpense: (expense) => {
+        expenses.push(expense)
     },
-    "Thomas": {
-        "email": "thomas@thomas.com",
-        "skills": [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "React"
-        ],
-        "age": 20,
-        "isLoggedIn": false,
-        "points": 40
-    },
-    "Paul": {
-        "email": "paul@paul.com",
-        "skills": [
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "MongoDB",
-            "Express",
-            "React",
-            "Node"
-        ],
-        "age": 20,
-        "isLoggedIn": false,
-        "points": 40
+    accountBalance: () => {
+        const balance = totalIncome() - totalExpense()
+        return balance < 0 ? `Las pérdidas son de ${balance}` : `Las ganancias son de ${balance}`
     }
 }
-`;
-// Ejercicios Nivel 1
-// Cambiar el array de habilidades a JSON usando JSON.stringify()
-console.log('Cambiar el array de habilidades a JSON usando JSON.stringify()', JSON.stringify(skills))
-// Stringify la variable de la edad
-console.log('Stringify la variable de la edad', JSON.stringify(age))
-// Stringify la variable isMarried
-console.log('Stringify la variable isMarried', JSON.stringify(isMarried))
-// Stringify el objeto estudiante
-console.log('Stringify el objeto estudiante', JSON.stringify(student))
-// Ejercicios Nivel 2
-// Stringify el objeto estudiantes con sólo las propiedades firstName, lastName y skills
-console.log('Stringify el objeto estudiantes con sólo las propiedades firstName, lastName y skills', JSON.stringify(student, ["firstName", "lastName", "skills"]))
-// Ejercicios Nivel 3
-// Parsear el txt JSON a objeto.
-console.log('Parsear el txt JSON a objeto', JSON.parse(txt))
-// Encuentra el usuario que tiene muchas habilidades de la variable almacenada en txt.
-const mostSkills = (obj) => {
-    const newObj = JSON.parse(obj)
-    const skillsLength = []
-    const arrayPeople = Object.entries(newObj)
-    arrayPeople.map(item => {
-        skillsLength.push(item[1].skills.length)
-    })
-    const max = Math.max(...skillsLength)
-    const index = skillsLength.indexOf(max)
-    const name = Object.keys(newObj)
-    return name[index]
-}
-console.log('Encuentra el usuario que tiene muchas habilidades de la variable almacenada en txt.', mostSkills(txt))
-
+personAccount = JSON.stringify(personAccount)
+localStorage.setItem('personAccount', personAccount)
+personAccount = JSON.parse(personAccount)
+console.log('Crear un objeto llamado personAccount. Tiene propiedades de nombre, apellido, ingresos, gastos y tiene métodos totalIncome, totalExpense, accountInfo,addIncome, addExpense y accountBalance. Los ingresos son un conjunto de ingresos y su descripción y los gastos son también un conjunto de gastos y su descripción.', localStorage.getItem('personAccount'))
