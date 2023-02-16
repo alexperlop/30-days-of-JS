@@ -1,70 +1,72 @@
+const countriesAPI = "https://restcountries.com/v2/all";
+const catsAPI = "https://api.thecatapi.com/v1/breeds";
 // Ejercicios: Nivel 1
-// Guarda tu nombre, apellido, edad, país y ciudad en tu navegador localStorage.
-localStorage.setItem('name', 'Pepe')
-console.log('Guarda tu nombre', localStorage.getItem('name'))
-localStorage.setItem('surname', 'Pepitez')
-console.log('Guarda tu apellido', localStorage.getItem('surname'))
-localStorage.setItem('age', '24')
-console.log('Guarda tu edad', localStorage.getItem('age'))
-localStorage.setItem('country', 'Spain')
-console.log('Guarda tu país', localStorage.getItem('country'))
-localStorage.setItem('city', 'Seville')
-console.log('Guarda tu ciudad', localStorage.getItem('city'))
-// Ejercicios: Nivel 2
-// Cree un objeto estudiante. El objeto estudiante tendrá el nombre, el apellido, la edad, las habilidades, el país, las claves inscritas y los valores para las claves. Almacena el objeto estudiante en el localStorage de tu navegador.
-let student = {
-    name: 'Alex',
-    surname: 'Fergusson',
-    age: 22,
-    skills: ['HTML5', 'CSS3', 'JS', 'React', 'NextJS'],
-    keys: [
-        {
-            key: 'netflix',
-            value: '12345'
-        }
-    ]
-}
-student = JSON.stringify(student)
-localStorage.setItem('student', student)
-student = JSON.parse(student)
-console.log(' Cree un objeto estudiante. El objeto estudiante tendrá el nombre, el apellido, la edad, las habilidades, el país, las claves inscritas y los valores para las claves. Almacena el objeto estudiante en el localStorage de tu navegador.', localStorage.getItem('student'))
-// Ejercicios: Nivel 3
-// Crear un objeto llamado personAccount. Tiene propiedades de nombre, apellido, ingresos, gastos y tiene métodos totalIncome, totalExpense, accountInfo,addIncome, addExpense y accountBalance. Los ingresos son un conjunto de ingresos y su descripción y los gastos son también un conjunto de gastos y su descripción.
-let personAccount = {
-    name: 'Alex',
-    surname: 'Fergusson',
-    incomes: [200, 35, 700],
-    expenses: [100, 500, 2700],
-    totalIncome: () => {
-        return incomes.reduce((acc, cur) => {
-            return acc + cur
-        }, 0)
-    },
-    totalExpense: () => {
-        return expenses.reduce((acc, cur) => {
-            return acc + cur
-        }, 0)
-    },
-    accountInfo: () => {
-        return {
-            expenses: expenses,
-            incomes: incomes,
-            totalExpenses: totalExpense,
-            totalIncome: totalIncome
-        }
-    },
-    addIncome: (income) => {
-        incomes.push(income)
-    },
-    addExpense: (expense) => {
-        expenses.push(expense)
-    },
-    accountBalance: () => {
-        const balance = totalIncome() - totalExpense()
-        return balance < 0 ? `Las pérdidas son de ${balance}` : `Las ganancias son de ${balance}`
+// Lee la API de los países utilizando fetch e imprime el nombre del país, la capital, los idiomas, la población y la superficie.
+const getCountry = async (url) => {
+    try {
+        const response = await fetch(url)
+        const data = await response.json()
+        data.map(({ name, capital, languages, area, population } = contry) => {
+            console.log(name, capital, languages, area, population)
+        })
+    } catch (error) {
+        console.error(error)
     }
 }
-personAccount = JSON.stringify(personAccount)
-localStorage.setItem('personAccount', personAccount)
-personAccount = JSON.parse(personAccount)
-console.log('Crear un objeto llamado personAccount. Tiene propiedades de nombre, apellido, ingresos, gastos y tiene métodos totalIncome, totalExpense, accountInfo,addIncome, addExpense y accountBalance. Los ingresos son un conjunto de ingresos y su descripción y los gastos son también un conjunto de gastos y su descripción.', localStorage.getItem('personAccount'))
+getCountry(countriesAPI)
+// Ejercicios: Nivel 2
+// Imprime todos los nombres de los gatos en la variable catNames.
+const getCatNames = async (url) => {
+    try {
+        const response = await fetch(url)
+        const data = await response.json()
+        console.log("🚀 ~ file: index.js:24 ~ getCatNames ~ data", data)
+        data.map(({ name } = cat) => {
+            console.log(name)
+        })
+    } catch (error) {
+        console.error(error)
+    }
+}
+getCatNames(catsAPI)
+// Ejercicios: Nivel 3
+// Lee el api de los gatos y encuentra el peso medio del gato en unidad métrica.
+const getWeightedAverage = async (url) => {
+    try {
+        const response = await fetch(url)
+        const data = await response.json()
+        data.map(({ name, weight } = cat) => console.log(`${name}:${weight.metric}`))
+    } catch (error) {
+        console.error(error)
+    }
+}
+getWeightedAverage(catsAPI)
+// Lee la api de países y descubre los 10 países más grandes
+getCatNames(catsAPI)
+// Ejercicios: Nivel 3
+const getBiggestTenCountries = async (url) => {
+    try {
+        const response = await fetch(url)
+        const data = await response.json()
+        const biggestTen = data.sort((a, b) => b.population - a.population)
+        console.log('Los 10 países más grandes', biggestTen.slice(0, 10))
+    } catch (error) {
+        console.error(error)
+    }
+}
+getBiggestTenCountries(countriesAPI)
+// Lea la api de los países y cuente el número total de lenguas del mundo utilizadas como oficiales.
+const getTotalLanguages = async (url) => {
+    try {
+        const response = await fetch(url)
+        const data = await response.json()
+        const result = data.reduce((acc, cur) => {
+            cur.languages.map(language => acc[language.name] = acc[language.name] ? acc[language.name] + 1 : 1)
+            return acc
+        }, {})
+        console.log("🚀 ~ file: index.js:71 ~ totalLanguages ~ totalLanguages", Object.keys(result).length)
+    } catch (error) {
+        console.error(error)
+    }
+}
+getTotalLanguages(countriesAPI)
