@@ -42,8 +42,6 @@ const getWeightedAverage = async (url) => {
 }
 getWeightedAverage(catsAPI)
 // Lee la api de países y descubre los 10 países más grandes
-getCatNames(catsAPI)
-// Ejercicios: Nivel 3
 const getBiggestTenCountries = async (url) => {
     try {
         const response = await fetch(url)
@@ -64,7 +62,7 @@ const getTotalLanguages = async (url) => {
             cur.languages.map(language => acc[language.name] = acc[language.name] ? acc[language.name] + 1 : 1)
             return acc
         }, {})
-        console.log("🚀 ~ file: index.js:71 ~ totalLanguages ~ totalLanguages", Object.keys(result).length)
+        console.log("El número total de lenguas del mundo utilizadas como oficiales", Object.keys(result).length)
     } catch (error) {
         console.error(error)
     }
