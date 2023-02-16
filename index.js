@@ -1,70 +1,90 @@
-const countriesAPI = "https://restcountries.com/v2/all";
-const catsAPI = "https://api.thecatapi.com/v1/breeds";
 // Ejercicios: Nivel 1
-// Lee la API de los países utilizando fetch e imprime el nombre del país, la capital, los idiomas, la población y la superficie.
-const getCountry = async (url) => {
-    try {
-        const response = await fetch(url)
-        const data = await response.json()
-        data.map(({ name, capital, languages, area, population } = contry) => {
-            console.log(name, capital, languages, area, population)
-        })
-    } catch (error) {
-        console.error(error)
-    }
+// Crear una closure que tenga una función interna
+const firstClosure = () => {
+    const str = 'My first closure'
+    const closure = () => str
+    return closure
 }
-getCountry(countriesAPI)
+const closure = firstClosure()
+console.log('Crear una closure que tenga una función interna', closure())
 // Ejercicios: Nivel 2
-// Imprime todos los nombres de los gatos en la variable catNames.
-const getCatNames = async (url) => {
-    try {
-        const response = await fetch(url)
-        const data = await response.json()
-        console.log("🚀 ~ file: index.js:24 ~ getCatNames ~ data", data)
-        data.map(({ name } = cat) => {
-            console.log(name)
-        })
-    } catch (error) {
-        console.error(error)
+// Crear una closure que tenga tres funciones internas
+const secondClosure = () => {
+    let count = 0
+    const plusOne = () => {
+        count++
+        return count
+    }
+    const minusOne = () => {
+        count--
+        return count
+    }
+    const sayHi = () => 'Hi there!'
+
+    return {
+        plusOne,
+        minusOne,
+        sayHi
     }
 }
-getCatNames(catsAPI)
+const closureTwo = secondClosure()
+console.log('Crear una closure que tenga tres funciones internas', closureTwo.plusOne(), closureTwo.minusOne(), closureTwo.sayHi())
 // Ejercicios: Nivel 3
-// Lee el api de los gatos y encuentra el peso medio del gato en unidad métrica.
-const getWeightedAverage = async (url) => {
-    try {
-        const response = await fetch(url)
-        const data = await response.json()
-        data.map(({ name, weight } = cat) => console.log(`${name}:${weight.metric}`))
-    } catch (error) {
-        console.error(error)
+// Crear una función de salida de personAccount. Tiene variables internas de nombre, apellido, ingresos y gastos. Tiene las funciones internas totalIncome, totalExpense, accountInfo,addIncome, addExpense y accountBalance. Los ingresos son un conjunto de ingresos y su descripción y los gastos son también un conjunto de gastos con su descripción.
+const personAccount = () => {
+    const name = 'Alex'
+    const surname = 'Fergusson'
+    const incomes = [200, 35, 700]
+    const expenses = [100, 500, 2700]
+
+    const totalIncome = () => {
+        return incomes.reduce((acc, cur) => {
+            return acc + cur
+        }, 0)
+    }
+    const totalExpense = () => {
+        return expenses.reduce((acc, cur) => {
+            return acc + cur
+        }, 0)
+    }
+    const accountInfo = () => {
+        return {
+            expenses: expenses,
+            incomes: incomes,
+            totalExpenses: totalExpense,
+            totalIncome: totalIncome
+        }
+    }
+    const addIncome = (income) => {
+        incomes.push(income)
+    }
+    const addExpense = (expense) => {
+        expenses.push(expense)
+    }
+    const accountBalance = () => {
+        const balance = totalIncome() - totalExpense()
+        return balance < 0 ? `Las pérdidas son de ${balance}` : `Las ganancias son de ${balance}`
+    }
+
+    return {
+        name,
+        surname,
+        incomes,
+        expenses,
+        totalIncome,
+        totalExpense,
+        accountInfo,
+        addIncome,
+        addExpense,
+        accountBalance,
     }
 }
-getWeightedAverage(catsAPI)
-// Lee la api de países y descubre los 10 países más grandes
-const getBiggestTenCountries = async (url) => {
-    try {
-        const response = await fetch(url)
-        const data = await response.json()
-        const biggestTen = data.sort((a, b) => b.population - a.population)
-        console.log('Los 10 países más grandes', biggestTen.slice(0, 10))
-    } catch (error) {
-        console.error(error)
-    }
-}
-getBiggestTenCountries(countriesAPI)
-// Lea la api de los países y cuente el número total de lenguas del mundo utilizadas como oficiales.
-const getTotalLanguages = async (url) => {
-    try {
-        const response = await fetch(url)
-        const data = await response.json()
-        const result = data.reduce((acc, cur) => {
-            cur.languages.map(language => acc[language.name] = acc[language.name] ? acc[language.name] + 1 : 1)
-            return acc
-        }, {})
-        console.log("El número total de lenguas del mundo utilizadas como oficiales", Object.keys(result).length)
-    } catch (error) {
-        console.error(error)
-    }
-}
-getTotalLanguages(countriesAPI)
+const person = personAccount()
+person.addIncome(730)
+console.log(person.incomes)
+person.addExpense(210)
+console.log(person.expenses)
+console.log(person.totalIncome())
+console.log(person.totalExpense())
+console.log(person.accountInfo())
+console.log(person.accountBalance())
