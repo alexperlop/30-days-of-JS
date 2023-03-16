@@ -1,64 +1,89 @@
-
-const isPrime = (num) => {
-    for (let i = 2, s = Math.sqrt(num); i <= s; i++) {
-        if (num % i === 0) return false;
+// Diccionario de planetas y su gravedad relativa a la Tierra
+const planet_gravity = {
+    "Mercurio": {
+        value: 3.7,
+        img: 'https://assets.stickpng.com/images/580b585b2edbce24c47b2709.png'
+    },
+    "Venus": {
+        value: 8.87,
+        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Venus.png/600px-Venus.png'
+    },
+    "Tierra": {
+        value: 9.81,
+        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Earth_Western_Hemisphere_transparent_background.png/1024px-Earth_Western_Hemisphere_transparent_background.png'
+    },
+    "Marte": {
+        value: 3.711,
+        img: 'https://www.pngall.com/wp-content/uploads/13/Mars-PNG-File.png'
+    },
+    "Jupiter": {
+        value: 24.79,
+        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Jupiter.png/1200px-Jupiter.png'
+    },
+    "Saturno": {
+        value: 10.44,
+        img: 'https://assets.stickpng.com/images/580b585b2edbce24c47b270d.png'
+    },
+    "Urano": {
+        value: 8.69,
+        img: 'https://static.vecteezy.com/system/resources/previews/011/178/729/non_2x/uranus-elements-of-this-image-furnished-by-nasa-free-png.png'
+    },
+    "Neptuno": {
+        value: 11.15,
+        img: 'https://cdn-icons-png.flaticon.com/512/3594/3594089.png'
+    },
+    "Plutón": {
+        value: 0.62,
+        img: 'https://static.vecteezy.com/system/resources/previews/016/536/742/non_2x/pluto-watercolor-planet-png.png'
     }
-    return num > 1;
-}
+};
 
-const form = document.querySelector('.wrapper')
+// Función para calcular el peso en diferentes planetas
+const calculateWeight = (mass, planet) => {
+    console.log("🚀 ~ file: index.js:16 ~ calculateWeight ~ planet:", planet)
+    console.log("🚀 ~ file: index.js:16 ~ calculateWeight ~ mass:", mass)
+    const gravity = planet_gravity[planet].value;
+    const weight = mass * gravity;
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault()
-    const inputVal = document.querySelector('#content').value
-    buildSquare(inputVal)
-})
-
-const buildSquare = (number) => {
-    const enterBtn = document.querySelector('.enter')
-    const label = document.querySelector('#contetLabel')
-    const container = document.querySelector('.container')
-
-    if (number && number.trim() !== '') {
-        const reg = new RegExp('^[0-9]+$')
-        const isNum = reg.test(number)
-        if (isNum) {
-            for (let i = 0; i <= number; i++) {
-                const div = document.createElement('div')
-                container.appendChild(div)
-                div.textContent = i
-                i % 2 === 0 ? div.style.cssText = `width:200px;height:200px;background-color:green;display:flex;justify-content:center;align-items:center;font-size:32px; font-weight:bold; font-family:system-ui;margin:15px` : div.style.cssText = `width:200px; height:200px;background-color:yellow;display:flex;justify-content:center;align-items:center;font-size:32px; font-weight:bold; font-family:system-ui;margin:15px`
-                if (isPrime(i)) {
-                    div.style.cssText = `width:200px; height:200px;background-color:red;display:flex;justify-content:center;align-items:center; font-size:32px; font-weight:bold; font-family:system-ui;margin:15px`
-                }
-            }
-            label.innerHTML = ''
-        } else {
-            label.innerHTML = 'input value must be a number'
-            enterBtn.style.cssText = 'margin: 0 0 0 25px;'
-            container.innerHTML = ''
-        }
-    } else {
-        label.innerHTML = 'Enter a number to generate a square'
-        enterBtn.style.cssText = 'margin: 0 0 0 25px;'
-        container.innerHTML = ''
-    }
-}
-document.addEventListener('keypress', (e) => {
-    printKey(e)
-})
-
-const printKey = ({ key, charCode, code }) => {
-    key.trim() === '' ? key = code : key = key
-    document.querySelector('.press-info').innerText = 'You pressed'
-    document.querySelector('.keypress').innerHTML = `${key}`
-    document.querySelector('.key-number').innerText = `${charCode}`
-    document.querySelector('.key-number').style.cssText = `
+    document.querySelector('.planet-wrap').style.cssText = `display: flex; background-color: rgba(243, 237, 237, 0.2);padding:30px 60px;`
+    document.querySelector('.planet').style.cssText = `
         display: flex;
         justify-content: center;
         align-items: center;
-        color:green; 
-        font-size:32px;
-        font-weight:bold;
     `
+    document.querySelector('.error').style.cssText = `
+            display:none;
+        `
+    document.querySelector('img').setAttribute('src', `${planet_gravity[planet].img}`)
+    document.querySelector('.title span').innerText = `${planet}`
+    document.querySelector('.circle').innerText = `${weight.toFixed(2)} N`
 }
+
+const form = document.querySelector('form')
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    const number = e.target[0].value
+    const planet = e.target[1].value
+
+    const reg = new RegExp('^[0-9]+$')
+    const isNum = reg.test(number)
+
+    if (isNum) {
+        calculateWeight(number, planet)
+    } else {
+        document.querySelector('.planet-wrap').style.cssText = `
+            display:none;
+        `
+        document.querySelector('.planet').style.cssText = `
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(243, 237, 237, 0.2);
+        `
+        document.querySelector('.error').style.cssText = `
+            display:inline;
+        `
+    }
+})

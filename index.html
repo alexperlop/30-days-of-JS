@@ -9,20 +9,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
   <body>
-    <form class="wrapper">
-        <div class="form-container">
-            <label for="number" id="contetLabel"></label>
-            <input type="text" name="number" id="content">
+    <div class="wrapper">
+        <h1>Caculate a weight of an object on a planet</h1>
+        <form action="" class="form-container">
+            <input type="text" class="input-text">
+            <select name="planet" id="planet">
+                <option value="Mercurio">Mercurio</option>
+                <option value="Venus">Venus</option>
+                <option value="Tierra">Tierra</option>
+                <option value="Marte">Marte</option>
+                <option value="Jupiter">Jupiter</option>
+                <option value="Saturno">Saturno</option>
+                <option value="Urano">Urano</option>
+                <option value="Neptuno">Neptuno</option>
+                <option value="Plutón">Plutón</option>
+              </select>
+              <button type="submit">Caculate weight</button>
+        </form>
+        <div class="planet">
+            <div class="error">Mass required</div>
+            <div class="planet-wrap">
+                <figure>
+                    <img src="" alt="">
+                </figure>
+                <div class="info-container">
+                    <span class="title">The weight of an object on <span>Earth</span> </span>
+                    <div class="circle">
+                        7.O N
+                    </div> 
+                </div>
+            </div>
         </div>
-      <button type="submit" class="enter">Enter</button>
-    </form>
-    <div class="container"></div>
-    <div class="press-container">
-        <div class="press-title">
-            <span class="press-info">Press any keyboard key</span>
-            <span class="keypress"></span>
-        </div>
-        <div class="key-number"></div>
     </div>
     <script type="module" src="index.js"></script>
     <script type="module" src="countries.js"></script>
