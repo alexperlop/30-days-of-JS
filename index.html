@@ -13,28 +13,27 @@
 <body>
     <div class="wrapper">
         <header>
-            <h1>World Countries Data</h1>
-            <p class="countries-length"></p>
+            <h1>world countries list</h1>
+            <p class="total-countries"></p>
+            <div class="text-content">
+                <p class="countries"></p>
+                <p class="countries-length"></p>
+            </div>
+            <div class="buttons">
+                <button class="starting-word">starting word</button>
+                <button class="search">search any word</button>
+                <button class="order">
+                    <i class="bi bi-sort-alpha-down"></i>
+                </button>
+            </div>
+            <input type="text" class="search-input" placeholder="search any country">
         </header>
-        <section>
-            <div class="tab">
-                <button class="tablinks">Languages</button>
-                <button class="tablinks">Population</button>
-            </div>
-
-            <div id="languages" class="tabcontent">
-                <h3>Ten most spoken languages in the world</h3>
-                <ul id="languages"></ul>
-            </div>
-
-            <div id="population" class="tabcontent">
-                <h3>Ten most populated countries in the world</h3>
-                <ul id="population"></ul>
-            </div>
+        <section class="result-contrainer">
+            <ul class="result-list"></ul>
         </section>
     </div>
 
-    
+
     <script type="module" src="index.js"></script>
     <script type="module" src="countries.js"></script>
 </body>
