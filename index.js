@@ -1,114 +1,69 @@
-import { countriesFile } from './countries.js'
+import { infoWebApp } from './info.js'
 
-const searchByFirstLetter = (letter) => {
-    const countries = countriesFile.filter(country => country.name.toLocaleLowerCase().startsWith(letter))
-    return countries
+document.querySelector('.person-name').textContent = infoWebApp.challengeTitle
+document.querySelector('.description').textContent = infoWebApp.description
+
+const clearSkillList = () => {
+    setTimeout(() => {
+        document.querySelector('.slider').innerHTML = ''
+    }, 1200)
+}
+const createSkillList = ({ icon, text }) => {
+    const carouselItem = document.createElement('div')
+    carouselItem.classList.add('carousel-item')
+    carouselItem.innerHTML = `<span class='icon'>${icon}</span><span class='skill'>${text}</span>`
+    return carouselItem
 }
 
-const searchAnyCountry = (word) => {
-    const countries = countriesFile.filter(country => country.name.toLocaleLowerCase().includes(word))
-    return countries
+const createTopicsList = (text) => {
+    console.log("🚀 ~ file: index.js:19 ~ createTopicsList ~ text:", text)
+    const carouselItem = document.createElement('div')
+    carouselItem.classList.add('carousel-item')
+    carouselItem.innerHTML = `<p class='feature'>${text}</p>`
+    return carouselItem
 }
 
-const clearList = () => {
-    if (document.querySelector('.result-list').hasChildNodes()) {
-        document.querySelector('.result-list').innerHTML = ''
+const startCarouselSkills = () => {
+    const container = document.querySelector('.slider')
+    const carouselItems = infoWebApp.skills.map(createSkillList)
+
+    let currentItemIndex = 0
+    const showNextItem = () => {
+        carouselItems[currentItemIndex].classList.remove('active')
+        currentItemIndex++
+        if (currentItemIndex >= carouselItems.length) {
+            currentItemIndex = 0
+        }
+
+        carouselItems[currentItemIndex].classList.add('active')
+
     }
+    container.append(...carouselItems)
+    carouselItems[currentItemIndex].classList.add('active')
+    setInterval(showNextItem, 5000)
 }
+const startCarouselTopics = () => {
+    const topicsContainer = document.querySelector('.features')
+    const carouselTopics = infoWebApp.challenges.map(challenge => createTopicsList(challenge.topics[0]))
 
-const orderCountriesByName = (countries, boolean) => {
-    if (boolean) {
-        const orderCountries = countries.reverse()
-        clearList()
-        for (let i = 0; i < orderCountries.length; i++) {
-            const li = document.createElement('li')
-            li.textContent = orderCountries[i]
-            document.querySelector('.result-list').appendChild(li)
+    let currentItemIndex = 0
+    const showNextItem = () => {
+        carouselTopics[currentItemIndex].classList.remove('active')
+        currentItemIndex++
+        if (currentItemIndex >= carouselTopics.length) {
+            currentItemIndex = 0
         }
-        document.querySelector('.order').innerHTML = '<i class="bi bi-sort-alpha-down"></i>'
-    } else {
-        const orderCountries = countries.sort()
-        clearList()
-        for (let i = 0; i < orderCountries.length; i++) {
-            const li = document.createElement('li')
-            li.textContent = orderCountries[i]
-            document.querySelector('.result-list').appendChild(li)
-        }
-        document.querySelector('.order').innerHTML = '<i class="bi bi-sort-alpha-up-alt"></i>'
+        carouselTopics[currentItemIndex].classList.add('active')
     }
+    topicsContainer.append(...carouselTopics)
+    carouselTopics[currentItemIndex].classList.add('active')
+    setInterval(showNextItem, 5000)
 }
+startCarouselSkills()
+startCarouselTopics()
 
-const displayAllCountries = () => {
-    countriesFile.map(country => {
-        const li = document.createElement('li')
-        li.textContent = country.name
-        document.querySelector('.result-list').appendChild(li)
-    })
-}
-displayAllCountries()
-
-document.querySelector('.total-countries').textContent = `Total countries: ${countriesFile.length}`
-
-document.querySelector('.starting-word').addEventListener('click', () => {
-    clearList()
-    const letter = document.querySelector('.search-input').value.slice(0, 1)
-    if (letter) {
-        const countries = searchByFirstLetter(letter)
-        for (let i = 0; i < countries.length; i++) {
-            const li = document.createElement('li')
-            li.textContent = countries[i].name
-            document.querySelector('.result-list').appendChild(li)
-        }
-        document.querySelector('.text-content').style.cssText = 'display: flex'
-        document.querySelector('.countries').textContent = `Countries start with ${letter.toUpperCase()}: `
-        document.querySelector('.countries-length').textContent = countries.length
-    } else {
-        document.querySelector('.text-content').style.cssText = 'display: none'
-        displayAllCountries()
-    }
-})
-
-document.querySelector('.search').addEventListener('click', () => {
-    clearList()
-    const country = document.querySelector('.search-input').value
-    if (country) {
-        const countries = searchAnyCountry(country)
-        for (let i = 0; i < countries.length; i++) {
-            const li = document.createElement('li')
-            li.textContent = countries[i].name
-            document.querySelector('.result-list').appendChild(li)
-        }
-        document.querySelector('.text-content').style.cssText = 'display: flex'
-        document.querySelector('.countries').textContent = ` Countries that contains ${country}: `
-        document.querySelector('.countries-length').textContent = countries.length
-    } else {
-        document.querySelector('.text-content').style.cssText = 'display: none'
-        displayAllCountries()
-    }
-})
-
-document.querySelector('.search-input').addEventListener('input', (event) => {
-    clearList()
-    const country = event.target.value
-    if (country) {
-        const countries = searchAnyCountry(country)
-        for (let i = 0; i < countries.length; i++) {
-            const li = document.createElement('li')
-            li.textContent = countries[i].name
-            document.querySelector('.result-list').appendChild(li)
-        }
-        document.querySelector('.text-content').style.cssText = 'display: flex'
-        document.querySelector('.countries').textContent = ` Countries that contains ${country}: `
-        document.querySelector('.countries-length').textContent = countries.length
-    } else {
-        document.querySelector('.text-content').style.cssText = 'display: none'
-        displayAllCountries()
-    }
-})
-
-let boolean = false
-document.querySelector('.order').addEventListener('click', () => {
-    const countries = [...document.querySelector('.result-list').children].map(country => country.textContent)
-    boolean = !boolean
-    if (countries.length > 0) orderCountriesByName(countries, boolean)
+infoWebApp.challenges.map(challenge => {
+    const li = document.createElement('li')
+    li.textContent = challenge.name
+    document.querySelector('.result-list').appendChild(li)
 })
