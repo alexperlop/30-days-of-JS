@@ -38,6 +38,14 @@ const orderCountriesByName = (countries, boolean) => {
     }
 }
 
+const displayAllCountries = () => {
+    countriesFile.map(country => {
+        const li = document.createElement('li')
+        li.textContent = country.name
+        document.querySelector('.result-list').appendChild(li)
+    })
+}
+displayAllCountries()
 
 document.querySelector('.total-countries').textContent = `Total countries: ${countriesFile.length}`
 
@@ -54,6 +62,9 @@ document.querySelector('.starting-word').addEventListener('click', () => {
         document.querySelector('.text-content').style.cssText = 'display: flex'
         document.querySelector('.countries').textContent = `Countries start with ${letter.toUpperCase()}: `
         document.querySelector('.countries-length').textContent = countries.length
+    } else {
+        document.querySelector('.text-content').style.cssText = 'display: none'
+        displayAllCountries()
     }
 })
 
@@ -70,6 +81,28 @@ document.querySelector('.search').addEventListener('click', () => {
         document.querySelector('.text-content').style.cssText = 'display: flex'
         document.querySelector('.countries').textContent = ` Countries that contains ${country}: `
         document.querySelector('.countries-length').textContent = countries.length
+    } else {
+        document.querySelector('.text-content').style.cssText = 'display: none'
+        displayAllCountries()
+    }
+})
+
+document.querySelector('.search-input').addEventListener('input', (event) => {
+    clearList()
+    const country = event.target.value
+    if (country) {
+        const countries = searchAnyCountry(country)
+        for (let i = 0; i < countries.length; i++) {
+            const li = document.createElement('li')
+            li.textContent = countries[i].name
+            document.querySelector('.result-list').appendChild(li)
+        }
+        document.querySelector('.text-content').style.cssText = 'display: flex'
+        document.querySelector('.countries').textContent = ` Countries that contains ${country}: `
+        document.querySelector('.countries-length').textContent = countries.length
+    } else {
+        document.querySelector('.text-content').style.cssText = 'display: none'
+        displayAllCountries()
     }
 })
 
