@@ -13,25 +13,31 @@
 <body>
     <div class="wrapper">
         <header>
-            <h1 class="person-name"></h1>
-            <div class="slider"></div>
+            <h1 class="title">30 Days of JavaScript Challenge LeaderBoard</h1>
         </header>
         <main class="main-content">
             <section>
-                <p class="description"></p>
-                <ul class="result-list"></ul>
-                <div class="features">
-                    <span class="text">
-                        <p>I teach</p>
-                    </span>
+                <form id="form">
+                    <input type="text" placeholder="First Name" id="name">
+                    <input type="text" placeholder="Last Name" id="last-name">
+                    <input type="text" placeholder="Country" id="country">
+                    <input type="text" placeholder="Player Score" id="score">
+                    <button type="submit" id="add-player">Add Player</button>
+                </form>
+                <div class="alert-container">
+                    <p class="alert">All fields are required</p>
                 </div>
+            </section>
+            <section>
+                <table>
+                    <tbody></tbody>
+                </table>
             </section>
         </main>
     </div>
 
 
     <script type="module" src="index.js"></script>
-    <script type="module" src="info.js"></script>
 </body>
 
 </html>
