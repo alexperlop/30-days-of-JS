@@ -1,12 +1,4 @@
-let playerInfo = [
-    {
-        id: '1',
-        name: 'David',
-        lastName: 'Smith',
-        country: 'United Kingdom',
-        score: '3',
-    }
-]
+let playerInfo = []
 
 const form = document.querySelector('#form')
 const table = document.getElementsByTagName('tbody')[0]
