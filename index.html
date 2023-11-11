@@ -11,12 +11,68 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <p id="text"></p>
-    </div>
-
+    <main class="wrapper">
+        <header class="header">
+            <nav>
+                <h1>World Countries Data</h1>
+                <p id="current-data"></p>
+            </nav>
+        </header>
+        <section>
+            <section class="search-field">
+                <div class="search">
+                    <input type="text" id="search" placeholder="Search for a country...">
+                    <button>
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+                <span>
+                    <button id="filter-name">Name</button>
+                    <button id="filter-capital">Capital</button>
+                    <button id="filter-population">Population</button>
+                    <button id="filter-statistics">
+                        <i class="bi bi-bar-chart-fill"></i>
+                    </button>
+                </span>
+            </section>
+            <h2 class="result">Results:</h2>
+            <section class="cards-container"></section>
+            <section id="pagination">
+                <button id="previous">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+                <span id="pages"></span>
+                <span id="total-pages"></span>
+                <button id="next">
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </section>
+            <section class="charts-container">
+                <div class="charts-buttons">
+                    <button>
+                        Population
+                    </button>
+                    <button>
+                        Language
+                    </button>
+                </div>
+                <span class="chart-text">
+                    world languages
+                </span>
+                <div class="chart-table">
+                    <span class="country-col">pais</span>
+                    <span class="chart-col">barra</span>
+                    <span class="number-col">número</span>
+                </div>
+            </section>
+        </section>
+        <footer>
+            <p>Created by Alex</p>
+        </footer>
+    </main>
 
     <script type="module" src="index.js"></script>
+    <script type="module" src="countries.js"></script>
 </body>
 
 </html>
