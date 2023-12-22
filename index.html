@@ -18,7 +18,7 @@
                 <p id="current-data"></p>
             </nav>
         </header>
-        <section>
+        <section class="main-section">
             <section class="search-field">
                 <div class="search">
                     <input type="text" id="search" placeholder="Search for a country...">
@@ -27,9 +27,18 @@
                     </button>
                 </div>
                 <span>
-                    <button id="filter-name">Name</button>
-                    <button id="filter-capital">Capital</button>
-                    <button id="filter-population">Population</button>
+                    <button id="filter-name">Name
+                        <i class="bi bi-arrow-down"></i>
+                        <i class="bi bi-arrow-up"></i>
+                    </button>
+                    <button id="filter-capital">Capital
+                        <i class="bi bi-arrow-down"></i>
+                        <i class="bi bi-arrow-up"></i>
+                    </button>
+                    <button id="filter-population">Population
+                        <i class="bi bi-arrow-down"></i>
+                        <i class="bi bi-arrow-up"></i>
+                    </button>
                     <button id="filter-statistics">
                         <i class="bi bi-bar-chart-fill"></i>
                     </button>
@@ -49,21 +58,17 @@
             </section>
             <section class="charts-container">
                 <div class="charts-buttons">
-                    <button>
+                    <button id="charts-population">
                         Population
                     </button>
-                    <button>
+                    <button id="charts-language">
                         Language
                     </button>
                 </div>
                 <span class="chart-text">
-                    world languages
+                    The most populated countries
                 </span>
-                <div class="chart-table">
-                    <span class="country-col">pais</span>
-                    <span class="chart-col">barra</span>
-                    <span class="number-col">número</span>
-                </div>
+                <section id="charts"></section>
             </section>
         </section>
         <footer>
