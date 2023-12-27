@@ -47,7 +47,7 @@ const paintHTMLCountries = ({ countries }) => {
             <img src="${getImages({ flag: country.flag }) && './src/images/icon-image-not-found-free-vector.jpeg'}" alt="${country.name}" class="country-img">
             <div class="card-body">
                 <h2>${country.name}</h2>
-                <p><strong>Population:</strong>${country.population}</p>
+                <p><strong>Population:</strong>${country.population.toLocaleString()}</p>
                 <p><strong>Capital:</strong> ${country.capital}</p>
                 <p>
                     <strong>
@@ -212,7 +212,7 @@ const sortByName = () => {
         resetArrowButtons()
         nameArrowDown.style.display = 'inline-block'
     }
-    reset()
+    container.innerHTML = ''
     paintHTMLCountries({ countries: countriesData.slice(0, 12) })
 }
 
@@ -242,7 +242,7 @@ const sortByCapital = (e) => {
         resetArrowButtons()
         capitalArrowDown.style.display = 'inline-block'
     }
-    reset()
+    container.innerHTML = ''
     paintHTMLCountries({ countries: countriesData.slice(0, 12) })
 }
 
@@ -258,7 +258,7 @@ const sortByPopulation = (e) => {
         resetArrowButtons()
         populationArrowUp.style.display = 'inline-block'
     }
-    reset()
+    container.innerHTML = ''
     paintHTMLCountries({ countries: countriesData.slice(0, 12) })
 }
 
@@ -304,7 +304,7 @@ const paintTableCountries = ({ countries, filter }) => {
                 >
                 </div>
                 </span>
-                <span class="number-col">${filter === 'population' ? country.population : country[1]}</span>
+                <span class="number-col">${filter === 'population' ? country.population.toLocaleString() : country[1]}</span>
             </div>`
     })
 }
